@@ -1,0 +1,17 @@
+
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Projeto Cadastro</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="home.jsp">Home</a></li>
+      <li><a href="cadastro.jsp">Cadastro Motorista</a></li>
+      <li><a href="consultmot.jsp">Consulta Motorista</a></li>
+      <li><a href="cadastropass.jsp">Cadastro Passageiro</a></li>
+      <li><a href="consultpass.jsp">Consulta Passageiro</a></li>
+    </ul>
+  </div>
+</nav>
