@@ -63,6 +63,16 @@
     <head>
         <title>Cadastrar Motorista</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script language="JavaScript" type="text/javascript" src="MascaraValidacao.js"></script>
+        <script src="jquery.maskedinput.js" type="text/javascript"></script>
+        <script language="JavaScript" type="text/javascript" src="jquery-3.2.1.min.js"></script>
+        <script>
+        jQuery(function($){
+        $("#campocpf").mask("999.999.999/99");
+        $("#campoTelefone").mask("(999) 999-9999");
+        $("#campoSenha").mask("***-****");
+        });
+        </script>
     </head>
     <body>
         <%@include file="WEB-INF/jspf/header.jspf"%>
@@ -71,11 +81,11 @@
                 <fieldset>
                     <legend>Cadastro Mostorista</legend>
                     <label>Informe seu nome: </label> <input type="text" name="nomemot" required><BR><BR>
-                    <label>Informe sua data de nascimento: </label> <input type="text" name="outra_data" id="date" maxlength="10" placeholder="00/00/0000"/><BR><BR>
-                    <label>Informe seu numero de CPF: </label><input type="number" name="cpf" id="cpf" maxlength="15" required onkeydown=""><BR><BR>
+                    <label>Informe sua data de nascimento: </label> <input type="text" name="outra_data" id="date" maxlength="10" onkeypress="mascaraData( this, event )"><BR><BR>
+                    <label>Informe seu numero de CPF: </label><input type="text" name="cpf" id="campocpf"  required><BR><BR>
                     <label>Informe o modelo do carro: </label><input type="text" name="modelocar" required><BR><BR>
                     <label>Informe o status:</label>
-                      <select id="combo2" name="status">
+                    <select id="combo2" name="status">
                         <option value="ativo">Ativo</option>
                         <option value="inativo">Inativo</option>
                     </select><BR><BR>

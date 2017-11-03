@@ -15,6 +15,8 @@
 </head>
     <%        
             try {
+                        String cpfgeral = request.getParameter("cpfmot");
+            
                         Connection connection = null;
 
                 // Carregua o Driver JDBC 
@@ -25,8 +27,13 @@
                 String url = "jdbc:derby://localhost:1527/ProjetoDB";
                 String username = "app";
                 String password = "app";
-                connection = DriverManager.getConnection(url, username, password);
+                connection = DriverManager.getConnection(url, username, password);               
+                    //edita status
+                        
 
+                    
+
+                //consulta
                 if (request.getParameter("consultar") != null) {
                     Statement stmt = connection.createStatement();
                     String cpfmot = request.getParameter("cpfmot");
@@ -38,8 +45,8 @@
                         String novonascmot = rs.getString("DATANASC_MOTORISTA");
                         String novostatusmot = rs.getString("STATUS_MOTORISTA");
                         String novomodelomot = rs.getString("MODELO_CARROMOTORISTA");
-                        String novosexomot = rs.getString("SEXO_MOTORISTA");          
-                    %>
+                        String novosexomot = rs.getString("SEXO_MOTORISTA"); 
+                        %>
                     <div class="container">
            <table class="table table-bordered">
             <tr>
@@ -54,20 +61,31 @@
                 <td><%=novocpfmot%></td>
                 <td><%=novonomemot%></td>
                 <td><%=novonascmot%></td>
-                <td><%=novostatusmot%><form><input type="submit" name="editar" value="Editar"></form></td>
+                <td><%=novostatusmot%>
                 <td><%=novomodelomot%></td>
                 <td><%=novosexomot%></td>
             </tr>
         </table>
             
-                        <%
+                        <%                                                 
                         }
-                   
-                    rs.close();
-                    stmt.close();
-                }
-
-                connection.close();
+                                rs.close();
+                                stmt.close();
+                            }
+                if (request.getParameter("editar") != null) {
+                        Statement stmt2 = connection.createStatement();
+                        String novostatus = request.getParameter("newstatus");
+                        String ecpfmot = request.getParameter("ecpfmot");
+                            out.print(novostatus);
+                        String sql2 = ("update  motorista set STATUS_MOTORISTA = ? where CPF_MOTORISTA="+ecpfmot);
+                        PreparedStatement preparedStatement = connection.prepareStatement(sql2);
+                        preparedStatement.setString(1, novostatus);
+                        preparedStatement.executeUpdate();                
+                        %>
+                        <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+                                alert("Dados Alterados!")
+                            </SCRIPT>
+                    <%                connection.close(); }
             } catch (ClassNotFoundException e) {
                 out.print("Erro Driver");
             } catch (SQLException e) {
@@ -83,33 +101,19 @@
         <input type="text" name="cpfmot">
         <input class="btn btn-default" type="submit" name="consultar" value="Consultar">
         <hr/>
-        <%try{
-            if(request.getParameter("editar")!=null){
-           Connection connection = null;
-                String driverName = "org.apache.derby.jdbc.ClientDriver";
-                Class.forName(driverName);
-
-                // Cria a conexão com o Banco de Dados 
-                String url = "jdbc:derby://localhost:1527/ProjetoDB";
-                String username = "app";
-                String password = "app";
-                connection = DriverManager.getConnection(url, username, password);
-      Statement stmt = connection.createStatement();
-      String sql = "UPDATE MOTORISTA SET STATUS_MOTORISTA='inativo' WHERE CPF_MOTORISTA ="+request.getParameter("cpfmot");
-           stmt.executeUpdate(sql);
-           %>
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
-    alert("Dados Cadastrados!")
-</SCRIPT>
-           <%
-           
-            }
-        }catch(Exception e){
-                    
-                    } 
-        %>
+        </form>
         <h2 align="center">Editar Status Motorista</h2>
-        </FORM>
+        <form>
+        <label>Informe o <kbd>CPF</kbd> do motorista para editar o seu status</LABEL>
+        <input type="text" name="ecpfmot"><br><br>
+        <label for="combo2">Informe o novo <kbd>status</kbd> do Motorista</label>
+        <select id="combo2" name="newstatus">
+        <option value="ativo">Ativo</option>
+        <option value="inativo">Inativo</option>
+        </select><BR><BR>
+        <input class="btn btn-default" type="submit" name="editar" value="Editar">
+        </form>
+
                     </div>
       <%@include file="WEB-INF/jspf/footer.jspf" %>
     </body>

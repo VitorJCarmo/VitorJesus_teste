@@ -22,40 +22,64 @@
                 String username = "app";
                 String password = "app";
                 connection = DriverManager.getConnection(url, username, password);
-
+                
+                        
+                        
                 if (request.getParameter("cadastrarc") != null) {
-                       String insertTableSQL = "INSERT INTO corrida (PASSAGEIRO_CORRIDA ,  MOTORISTA_CORRIDA,  VALOR_CORRIDA) VALUES(?,?,?)";
-                       PreparedStatement preparedStatement = connection.prepareStatement(insertTableSQL);
                         String cpfmot = request.getParameter("cpfmot");
                         String cpfpass = request.getParameter("cpfpass");
                         String nvalor = request.getParameter("valor");
+                        Statement stmt2 = connection.createStatement();
+                        
+                        
+                       String sql = ("SELECT STATUS_MOTORISTA FROM MOTORISTA WHERE CPF_MOTORISTA =" + cpfmot);
+                       ResultSet rs4 = stmt2.executeQuery(sql);
+                        while(rs4.next()){
+                           rs4.getString("STATUS_MOTORISTA");  
+                            String statusmot = rs4.getString("STATUS_MOTORISTA");
+                            out.print(statusmot);
+                            if((statusmot).equalsIgnoreCase("inativo")){
+                                %>
+                                <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+ alert("Motorista Inativo");
+                                </SCRIPT>
+                                
+                                
+                                <%
+                                connection.close();
+                            }
+                                                    }
+                        
+                    
+                       String insertTableSQL = "INSERT INTO corrida (PASSAGEIRO_CORRIDA ,  MOTORISTA_CORRIDA,  VALOR_CORRIDA) VALUES(?,?,?)";
+                       PreparedStatement preparedStatement = connection.prepareStatement(insertTableSQL);
                         Statement stmt = connection.createStatement();
                         ResultSet rs;
                         ResultSet rs2;
+                        ResultSet rs3;
                         rs2 = stmt.executeQuery("SELECT NOME_MOTORISTA FROM MOTORISTA WHERE CPF_MOTORISTA =" + cpfmot);
                         while (rs2.next()){
                                  
                             preparedStatement.setString(2, rs2.getString("NOME_MOTORISTA"));  
-                            String nomepass = rs2.getString("NOME_MOTORISTA");
-                           out.print(nomepass);
+                            String nomemot = rs2.getString("NOME_MOTORISTA");
+                           
                         }
                         
                         rs = stmt.executeQuery("SELECT NOME_PASSAGEIRO FROM PASSAGEIRO WHERE CPF_PASSAGEIRO =" + cpfpass);
                         while (rs.next()){
                              preparedStatement.setString(1, rs.getString("NOME_PASSAGEIRO"));
-                            String nomemot = rs.getString("NOME_PASSAGEIRO");
-                            out.println(nomemot);
+                            String nomepass = rs.getString("NOME_PASSAGEIRO");
+                            
                         }
                                 
                                 preparedStatement.setString(3, nvalor);
                                 preparedStatement.executeUpdate();
                                                         
-                       
-                          
+                      
                         
             %>
    <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
-    alert("Corrida Cadastrada!")
+    alert("Corrida Cadastrada!");
 </SCRIPT>
 <%
                     rs.close();
