@@ -12,7 +12,7 @@
       <li><a href="consultmot.jsp">Consulta Motorista</a></li>
       <li><a href="cadastropass.jsp">Cadastro Passageiro</a></li>
       <li><a href="consultpass.jsp">Consulta Passageiro</a></li>
-      <li><a href="cadastrocorrida.jsp">Cadastrar Corrida</a></li>
+      <li><a href="cadastrocorrida.jsp">Cadastro Corrida</a></li>
       <li><a href="consultcorrida.jsp">Consulta Corrida</a></li>
     </ul>
   </div>

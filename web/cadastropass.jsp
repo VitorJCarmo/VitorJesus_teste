@@ -11,11 +11,11 @@
         Connection connection = null;
         try {  
             
-        // Load the JDBC driver  
+          
         String driverName = "org.apache.derby.jdbc.ClientDriver";  
         Class.forName(driverName);  
       
-        // Create a connection to the database  
+          
         String url = "jdbc:derby://localhost:1527/ProjetoDB";  
         String username = "app";  
         String password = "app";  

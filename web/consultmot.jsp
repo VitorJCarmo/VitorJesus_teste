@@ -76,7 +76,7 @@
                         Statement stmt2 = connection.createStatement();
                         String novostatus = request.getParameter("newstatus");
                         String ecpfmot = request.getParameter("ecpfmot");
-                            out.print(novostatus);
+                         
                         String sql2 = ("update  motorista set STATUS_MOTORISTA = ? where CPF_MOTORISTA="+ecpfmot);
                         PreparedStatement preparedStatement = connection.prepareStatement(sql2);
                         preparedStatement.setString(1, novostatus);

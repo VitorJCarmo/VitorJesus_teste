@@ -37,7 +37,7 @@
                         while(rs4.next()){
                            rs4.getString("STATUS_MOTORISTA");  
                             String statusmot = rs4.getString("STATUS_MOTORISTA");
-                            out.print(statusmot);
+                            
                             if((statusmot).equalsIgnoreCase("inativo")){
                                 %>
                                 <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
